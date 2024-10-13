@@ -3,15 +3,19 @@
   "compilerOptions": {
     "strict": true,
     "paths": {
-      "@/*": [
-        "./*"
-      ]
+      "@/*": ["./*"]
     }
   },
   "include": [
     "**/*.ts",
     "**/*.tsx",
     ".expo/types/**/*.ts",
-    "expo-env.d.ts"
+    "expo-env.d.ts",
+    "components/svg/SongSvg.jsx",
+    "components/HymnList.tsx",
+    "hooks/useFavorites.jsx",
+    "app/hymns.jsx",
+    "components/HymnalSelector.jsx",
+    "hooks/useHymns.jsx"
   ]
 }

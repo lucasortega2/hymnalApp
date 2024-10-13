@@ -1,10 +1,10 @@
 {
   "expo": {
-    "name": "pruebanative",
-    "slug": "pruebanative",
+    "name": "Himnario Jovenes",
+    "slug": "himnario-jovenes",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
+    "icon": "./assets/Logo.png",
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "splash": {
@@ -17,9 +17,14 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/adaptive-icon.png",
+        "foregroundImage": "./assets/Logo.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "permissions": [
+        "WRITE_EXTERNAL_STORAGE",
+        "READ_EXTERNAL_STORAGE"
+      ],
+      "package": "himnario.recobro"
     },
     "web": {
       "bundler": "metro",
@@ -31,6 +36,11 @@
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "eas": {
+        "projectId": "ee3f9187-e46a-47bd-bf43-d2313c494be8"
+      }
     }
   }
 }

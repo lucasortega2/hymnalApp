@@ -1,37 +1,18 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { useFonts } from 'expo-font';
+import React from 'react';
 import { Stack } from 'expo-router';
-import * as SplashScreen from 'expo-splash-screen';
-import { useEffect } from 'react';
-import 'react-native-reanimated';
-
-import { useColorScheme } from '@/hooks/useColorScheme';
-
-// Prevent the splash screen from auto-hiding before asset loading is complete.
-SplashScreen.preventAutoHideAsync();
-
-export default function RootLayout() {
-  const colorScheme = useColorScheme();
-  const [loaded] = useFonts({
-    SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
-  });
-
-  useEffect(() => {
-    if (loaded) {
-      SplashScreen.hideAsync();
-    }
-  }, [loaded]);
-
-  if (!loaded) {
-    return null;
-  }
-
+import { LinearGradient } from 'expo-linear-gradient';
+export default function Layout() {
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="+not-found" />
-      </Stack>
-    </ThemeProvider>
+    <LinearGradient colors={['#0f172a', '#334155']} className="flex-1">
+      <Stack
+        screenOptions={{
+          headerTintColor: 'white',
+          headerStyle: { backgroundColor: 'transparent' },
+          headerShown: true,
+          contentStyle: { backgroundColor: 'transparent' },
+          animation: 'slide_from_right',
+        }}
+      />
+    </LinearGradient>
   );
 }
