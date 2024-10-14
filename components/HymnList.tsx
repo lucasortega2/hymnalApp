@@ -36,7 +36,7 @@ const HymnList = ({ hymnsData }: HymnListProps) => {
         <View className="mb-6 flex-row justify-between relative w-full ">
           <TextInput
             value={input}
-            placeholder="Titulo o número"
+            placeholder="Buscar himno"
             onChangeText={(e) => {
               handleInput(e);
               handlePageChange(1);

@@ -1,5 +1,5 @@
 import { Himno } from '@/components/types';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo, useCallback } from 'react';
 
 const usePagination = (
   filteredHimnos: Himno[],
@@ -7,76 +7,105 @@ const usePagination = (
 ) => {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const hymnPerPage = 20;
+
+  const totalPost = filteredHimnos.length;
   const lastPostIndex = currentPage * hymnPerPage;
   const firstPostIndex = lastPostIndex - hymnPerPage;
-  const currentHymns = filteredHimnos.slice(firstPostIndex, lastPostIndex);
+
+  const currentHymns = useMemo(
+    () => filteredHimnos.slice(firstPostIndex, lastPostIndex),
+    [filteredHimnos, firstPostIndex, lastPostIndex],
+  );
 
   const [pages, setPages] = useState<(number | '...')[]>([]);
-  const totalPost = filteredHimnos.length;
 
   useEffect(() => {
     const totalPages = Math.ceil(totalPost / hymnPerPage);
     let pageArray: (number | '...')[] = [];
-    if (totalPages <= 6) {
+    if (totalPages <= 5) {
       pageArray = Array.from({ length: totalPages }, (_, i) => i + 1);
     } else {
-      if (currentPage <= 4) {
-        pageArray = [1, 2, 3, 4, '...', totalPages];
-      } else if (currentPage >= totalPages - 3) {
-        pageArray = [
-          1,
-          '...',
-          totalPages - 3,
-          totalPages - 2,
-          totalPages - 1,
-          totalPages,
-        ];
-      } else {
-        pageArray = [
-          1,
-          '...',
-          currentPage - 1,
-          currentPage,
-          currentPage + 1,
-          '...',
-          totalPages,
-        ];
+      switch (true) {
+        case currentPage >= 1 && currentPage <= 3:
+          pageArray = [1, 2, 3, 4, '...', totalPages];
+          break;
+        case currentPage == totalPages - 2:
+          pageArray = [
+            1,
+            '...',
+            currentPage - 1,
+            currentPage,
+            currentPage + 1,
+            totalPages,
+          ];
+          break;
+        case currentPage == totalPages - 1:
+          pageArray = [
+            1,
+            '...',
+            currentPage - 2,
+            currentPage - 1,
+            currentPage,
+            totalPages,
+          ];
+          break;
+        case currentPage == totalPages:
+          pageArray = [
+            1,
+            '...',
+            currentPage - 3,
+            currentPage - 2,
+            currentPage - 1,
+            currentPage,
+          ];
+          break;
+        default:
+          pageArray = [
+            1,
+            currentPage - 1,
+            currentPage,
+            currentPage + 1,
+            '...',
+            totalPages,
+          ];
       }
     }
-
     setPages(pageArray);
-  }, [totalPost, hymnPerPage, currentPage]);
+  }, [totalPost, currentPage]);
 
-  const scrollToTop = () => {
-    if (currentHymns.length < 0) {
+  const scrollToTop = useCallback(() => {
+    if (currentHymns.length > 0) {
       flatListRef.current?.scrollToIndex({
         index: 0,
         animated: true,
       });
     }
-  };
+  }, [currentHymns.length, flatListRef]);
 
-  const handlePageChange = (page: number | '...') => {
-    if (typeof page === 'number') {
-      setCurrentPage(page);
+  const handlePageChange = useCallback(
+    (page: number | '...') => {
+      if (typeof page === 'number') {
+        setCurrentPage(page);
+        scrollToTop();
+      }
+    },
+    [scrollToTop],
+  );
 
-      scrollToTop();
-    }
-  };
-
-  const handlePrevious = () => {
+  const handlePrevious = useCallback(() => {
     if (currentPage > 1) {
       scrollToTop();
-      setCurrentPage(currentPage - 1);
+      setCurrentPage((prev) => prev - 1);
     }
-  };
+  }, [currentPage, scrollToTop]);
 
-  const handleNext = () => {
-    if (currentPage < Math.ceil(totalPost / hymnPerPage)) {
+  const handleNext = useCallback(() => {
+    const totalPages = Math.ceil(totalPost / hymnPerPage);
+    if (currentPage < totalPages) {
       scrollToTop();
-      setCurrentPage(currentPage + 1);
+      setCurrentPage((prev) => prev + 1);
     }
-  };
+  }, [currentPage, totalPost, hymnPerPage, scrollToTop]);
 
   return {
     currentHymns,

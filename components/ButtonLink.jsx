@@ -1,14 +1,17 @@
 import { Link } from 'expo-router';
 import React from 'react';
 import { View, Pressable } from 'react-native';
-import FontAwesome from '@expo/vector-icons/FontAwesome';
+import ButtonAwesome from './ButtonAwesome';
+import { FontAwesome } from '@expo/vector-icons';
 
-const ButtonLink = ({ url, name, size }) => {
+const ButtonLink = ({ url, name, size, classname }) => {
   return (
     <Link href={url} asChild>
-      <Pressable className="active:scale-95 transition-all duration-150">
+      <Pressable
+        className={`rounded-full active:scale-95 transition-all duration-150 ${classname}`}
+      >
         {({ pressed }) => (
-          <View className=" flex-row items-center justify-center space-x-2 px-4 py-4 rounded-full bg-gray-800 shadow-md">
+          <View className="  shadow-md">
             <FontAwesome
               name={name}
               size={size}

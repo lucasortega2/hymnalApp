@@ -94,15 +94,20 @@ export default function Hymn() {
           </View>
         </ScrollView>
         <LinearGradient colors={['#1e293b', '#27313f']}>
-          <View className="flex-row justify-between px-8 py-3 ">
-            <ButtonLink url="/hymns" name="home" size={25} />
+          <View className="flex-row justify-between px-6 py-3 items-center ">
+            <ButtonLink
+              url="/hymns"
+              name="home"
+              size={25}
+              classname="bg-gray-800 py-4 px-4 "
+            />
             <CopyButton hymn={hymn} />
             <ButtonAwesome
               onPress={() => setIsModalVisible(true)}
               color="green"
               name="music"
               size={25}
-              style="opacity-40 "
+              classname="bg-gray-800 py-4 px-4 opacity-40"
               disabled={true}
             />
             <ButtonAwesome
@@ -110,12 +115,14 @@ export default function Hymn() {
               color="white"
               name="minus"
               size={25}
+              classname="bg-gray-800 py-4 px-4"
             />
             <ButtonAwesome
               onPress={increaseFontSize}
               color="white"
               name="plus"
               size={25}
+              classname="bg-gray-800 py-4 px-4"
             />
           </View>
         </LinearGradient>

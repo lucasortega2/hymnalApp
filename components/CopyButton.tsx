@@ -32,6 +32,7 @@ const CopyButton: React.FC<CopyButtonProps> = ({ hymn }) => {
       onPress={copyToClipboard}
       color={color}
       size={25}
+      classname="bg-gray-800 py-4 px-4"
     />
   );
 };

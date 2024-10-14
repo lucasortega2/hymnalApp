@@ -15,15 +15,16 @@ const Pagination = ({
   currentPage: number;
 }) => {
   return (
-    <View className="flex-row items-center justify-between  mt-4 ">
+    <View className="flex-row items-center justify-between h-24 ">
       <ButtonAwesome
         name="arrow-left"
         size={20}
         color="white"
         onPress={handlePrevious}
+        classname="w-12 bg-slate-800 px-2 py-3"
       />
 
-      <View className="flex-row space-x-2 ">
+      <View className="flex-row space-x-1 ">
         {pages.map((page, index) => (
           <Pressable
             key={index}
@@ -51,6 +52,7 @@ const Pagination = ({
         size={20}
         color="white"
         onPress={handleNext}
+        classname="w-12 bg-slate-800 px-2 py-3"
       />
     </View>
   );

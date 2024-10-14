@@ -52,13 +52,19 @@ const StackForPageHymns = ({ onPress }) => {
 
   return (
     <View className="flex-row justify-between pt-12 pb-4 px-4">
-      <ButtonLink url={'/'} name="home" size={25} />
+      <ButtonLink
+        url={'/'}
+        name="home"
+        size={25}
+        classname="py-4 px-4 bg-slate-800"
+      />
       <Animated.View style={{ transform: [{ rotate }] }}>
         <ButtonAwesome
           onPress={handlePress}
           name="refresh"
           color={isLoaded ? 'green' : 'white'} // Cambia a verde cuando termine la carga
           size={25}
+          classname="bg-slate-800 w-14 px-4 py-4 "
         />
       </Animated.View>
     </View>

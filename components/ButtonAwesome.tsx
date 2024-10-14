@@ -8,6 +8,7 @@ interface RefreshButtonProps {
   size: number;
   style?: string;
   disabled?: boolean;
+  classname?: string;
 }
 
 const ButtonAwesome: React.FC<RefreshButtonProps> = ({
@@ -17,15 +18,18 @@ const ButtonAwesome: React.FC<RefreshButtonProps> = ({
   size,
   style,
   disabled = false,
+  classname,
 }) => {
   return (
     <Pressable
       disabled={disabled}
       onPress={onPress}
-      className={`active:scale-95 transition-all duration-150 h-max w-max ${style} disabled:true `}
+      className={`active:scale-95 transition-all duration-150 h-max w-max ${style}`}
     >
       {({ pressed }) => (
-        <View className="w-14 flex-row items-center justify-center  px-4 py-4  rounded-full bg-gray-800 shadow-md">
+        <View
+          className={` flex-row items-center justify-center  rounded-full bg-gray-800 shadow-md ${classname} `}
+        >
           <FontAwesome
             name={name}
             size={size}
